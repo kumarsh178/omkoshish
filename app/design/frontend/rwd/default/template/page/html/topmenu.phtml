@@ -37,6 +37,7 @@
     <nav id="nav">
         <ol class="nav-primary">
         	<li class="level0 nav-1 first parent"><a href="<?php echo Mage::getBaseUrl(); ?>" class="level0 has-children"><?php echo Mage::getModel('core/variable')->loadByCode('home')->getValue('text'); ?></a></li>
+        	<li class="level0 nav-2 first"><a href="<?php echo Mage::getUrl('blog'); ?>" class="level0 has-children"><?php echo Mage::getModel('core/variable')->loadByCode('blog_code')->getValue('text'); ?></a></li>
             <?php echo $_menu ?>
             <li class="level0 nav-4 last parent"><a href="<?php echo Mage::getUrl('contacts'); ?>" class="level0 has-children"><?php echo Mage::getModel('core/variable')->loadByCode('contact_us')->getValue('text'); ?></a></li>
         </ol>
