@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+  <volunteers_adminhtml_volunteers_index>
+	<reference name="content">
+	  <block type="volunteers/adminhtml_volunteers" name="volunteers" />
+	</reference>
+  </volunteers_adminhtml_volunteers_index>
+</layout>

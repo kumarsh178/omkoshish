@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout>
+	<default>
+			<reference name="head">
+				<action method="addItem">
+			      <type>skin_js</type>
+			      <name>js/owl.carousel.min.js</name>
+			      <params/>
+   				</action>
+				<action method="addCss"><stylesheet>css/owl/owl.carousel.min.css</stylesheet></action>
+				<action method="addCss"><stylesheet>css/font-awesome.css</stylesheet></action>
+				<action method="addCss"><stylesheet>css/styles-l.css</stylesheet></action>
+				<!--  Add an EXTERNAL javascript  -->
+				<action method="addLinkRel"><rel>stylesheet</rel><href>https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css</href></action>
+              
+			</reference>
+	</default>
+</layout>

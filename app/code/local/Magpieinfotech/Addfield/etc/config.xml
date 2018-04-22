@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Magpieinfotech_Addfield>
+      <version>0.1.0</version>
+    </Magpieinfotech_Addfield>
+  </modules>
+  <global>
+    <helpers>
+      <addfield>
+        <class>Magpieinfotech_Addfield_Helper</class>
+      </addfield>
+    </helpers>
+	<resources>
+	  <addfield_setup>
+		<setup>
+		  <module>Magpieinfotech_Addfield</module>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </addfield_setup>
+	  <addfield_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </addfield_write>
+	  <addfield_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </addfield_read>
+	</resources>
+  </global>
+</config> 

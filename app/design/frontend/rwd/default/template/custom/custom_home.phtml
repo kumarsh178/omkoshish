@@ -1,0 +1,286 @@
+<?php 
+$banners = $this->getbanners();
+$campaigns = $this->_campaignFactory->getCollection()->setOrder('entity_id', 'desc');
+$campaigns->setPageSize(3) // only get 10 products 
+		    ->setCurPage(1)  // first page (means limit 0,10)
+		    ->load(); 
+$volunteers = $this->_volunteersFactory->getCollection()->setOrder('entity_id', 'desc');
+    	$volunteers 
+		    ->setPageSize(4) // only get 10 products 
+		    ->setCurPage(1)  // first page (means limit 0,10)
+		    ->load();
+$blogs = $this->_postBlock->getCollection()->addPresentFilter()
+            ->addEnableFilter(AW_Blog_Model_Status::STATUS_ENABLED)
+            ->addStoreFilter()
+            ->setOrder('created_time', 'desc')->setPageSize(3)->setCurPage(1)  // first page (means limit 0,10)
+		    ->load();
+$gallerys = $this->_galleryFactory->getCollection()->setOrder('entity_id', 'desc');
+$gallerys->setPageSize(8) // only get 10 products 
+		    ->setCurPage(1)  // first page (means limit 0,10)
+		    ->load();
+?>
+<section class="slider-block">
+	<div class="owl-carousel owl-theme">
+	<?php if($banners->getSize() > 0){
+		foreach($banners as $banner){?>
+		<div class="item">
+			<img src="<?php echo $this->getImageUrl($banner->getImage()); ?>" alt="Demo">
+			<div class="slider-content">
+				<div class="slider-content-inner">
+					<div class="container">
+						<div class="row">
+							<h4><?php echo $banner->getFirstTitle(); ?></h4>
+							<h4><?php echo $banner->getSecondTitle(); ?></h4>
+							<h4><?php echo $banner->getThirdTitle(); ?></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php }
+			} else{ ?>
+		<section class="slider-block">
+			<div class="owl-carousel owl-theme">
+				Please add banner
+			</div>
+		</section>
+		<?php
+		} ?>
+</section>
+<section class="ngo-help-section section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-md-offset-3">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('how_can_we_home_page')->toHtml();?>
+			</div>
+		</div>
+		<div class="row ">
+			<div class="col-md-4 col-sm-4 ngo-col-padd-less">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('become_volunteers_block_home_page')->toHtml();?>
+			</div>
+			<div class="col-md-4 col-sm-4 ngo-col-padd-less">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('give_donation_block_home_page')->toHtml();?>
+			</div>
+			<div class="col-md-4 col-sm-4 ngo-col-padd-less">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('give_support_block_home_page')->toHtml();?>
+			</div>
+		</div>
+	</div>
+</section>
+<section class="ngo-divider-field section-block" >
+	<div class="container">
+		<div class="row">		
+			<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('helping_children_home_page')->toHtml();?>
+		</div>
+	</div>
+</section>
+
+<section class="ngo-campaign-field section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-md-offset-3">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('latest_compaign_home_page')->toHtml();?>
+			</div>
+		</div>
+		<div class="row">
+	<?php if($campaigns->getSize()>0){
+				foreach($campaigns as $campaign){
+			?>
+			<div class="col-md-4 col-sm-6">
+				<div class="ngo-campaign-col">
+					<div class="ngo-campaign-img">
+						<img src="<?php echo $this->getImageUrl($campaign->getImage()); ?>" alt="Demo">
+						<div class="ngo-urgent"><p><a href="#">urgent</a></p></div>
+						<div class="ngo-campaign-img-text">
+							<ul class="clearfix">
+								<li><p><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $this->_bannerHelper->getDays($campaign->getDate()); ?> Days Left</p></li>
+								<li class="pull-right"><p><i class="fa fa-map-marker" aria-hidden="true"></i><?php echo ucfirst($campaign->getLocation()); ?></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="ngo-campaign-content">
+						<h4><?php echo $campaign->getTitle(); ?></h4>
+						<p><?php echo $campaign->getDescription() ?></p>
+						
+						<a class="btn ngo-btn-donate ngo-btn-transparent" href="#" role="button">DONATE NOW</a>
+						
+					</div>
+				</div>
+			</div>		
+		<?php }
+	}else{
+		echo "<h2>Please Add Campaign</h2>";
+	}
+	?>
+	</div>
+</section>
+<section class="ngo-counter-field section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-sm-6 col-xs-6">
+				<div class="ngo-counter-col">
+					<div class="ngo-funfact">
+						<i class="fa fa-users" aria-hidden="true"></i>
+						<div class="start-count">10802</div>
+						<span>+</span>
+						<div class="clearfix"></div>
+						<h4>Volunteers</h4>
+					</div>
+				</div>	
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-6">
+				<div class="ngo-counter-col">
+					<div class="ngo-funfact">
+						<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+						<div class="start-count">807023</div>
+						<span>+</span>
+						<div class="clearfix"></div>
+						<h4>Casuses</h4>
+					</div>
+				</div>	
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-6">
+				<div class="ngo-counter-col">
+					<div class="ngo-funfact">
+						<i class="fa fa-gift" aria-hidden="true"></i>
+						<div class="start-count">10807</div>
+						<span>+</span>
+						<div class="clearfix"></div>
+						<h4>Donators</h4>
+					</div>
+				</div>	
+			</div>
+			<div class="col-md-3 col-sm-6 col-xs-6">
+				<div class="ngo-counter-col">
+					<div class="ngo-funfact">
+						<i class="fa fa-heartbeat" aria-hidden="true"></i>
+						<div class="start-count">1080</div>
+						<span>+</span>
+						<div class="clearfix"></div>
+						<h4>Saved</h4>
+					</div>
+				</div>	
+			</div>
+		</div>
+	</div>
+</section>
+<section class="ngo-volunteers-field section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-md-offset-3">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('latest_compaign_home_page')->toHtml();?>
+			</div>
+		</div>
+		<div class="row">
+			<?php if($volunteers->getSize()>0){ 
+				foreach($volunteers as $volunteer){ ?>
+			<div class="col-md-3 col-sm-6">
+				<div class="ngo-volunteer-col">
+					<img src="<?php echo $this->getImageUrl($volunteer->getImage()); ?>" alt="Demo">
+					<div class="ngo-volunteer-name">
+						<h4><?php echo $volunteer->getTitle(); ?></h4>
+						<p>Volunteers</p>
+					</div>
+					<div class="ngo-volunteer-name-two">
+						<h4><a href="profile.html">Robiul Siddikee</a></h4>
+						<p>Volunteers</p>
+						<div class="ngo-volunteer-social">
+							<a href="#"><i class="fa fa-facebook"><span>Facebook</span></i></a>
+							
+							<a href="#"><i class="fa fa-instagram"><span>Instagram</span></i></a>
+							<a href="#"><i class="fa fa-twitter"><span>Twitter</span></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php } }else{
+				echo '<h2>Please add volunteers</h2>';
+				 } ?>
+		</div>
+	</div>
+</section>
+<section class="ngo-gallery-field section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-md-offset-3">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('gallery_block_home_page')->toHtml();?>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<?php if($gallerys->getSize() > 0){ 
+				foreach($gallerys as $gallery){ ?>
+			<div class="col-md-3 col-sm-6 ngo-col-padd-less">
+				<div class="ngo-img-hover">
+                    <img src="<?php echo $this->getImageUrl($gallery->getImage()); ?>" alt="Demo">
+                    <div class="ngo-layer">
+	                    <a class="lightbox-image" href="#" >
+	                    	<i class="fa fa-arrows-alt" aria-hidden="true"></i>
+	                    </a>
+                    </div>
+                </div>	
+			</div>
+			<?php } }else{
+				echo '<h2>Please add gallery image</h2>';
+			} ?>
+			
+		</div>		
+	</div>
+</section>
+<section class="ngo-blog-field section-block">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 col-md-offset-3">
+				<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('latest_blog_home_page')->toHtml();?>
+			</div>
+		</div>
+		<div class="row">
+			<?php if($blogs->getSize() > 0) {
+				foreach($blogs as $post) { ?>
+			<div class="col-md-4 col-sm-6">
+				<div class="ngo-campaign-col ngo-blog-col">
+					<div class="ngo-campaign-img">
+						<!-- <img src="<?php echo $this->_postBlock->getImageUrl($post->getImage()); ?>" alt="Demo"> -->
+						<div class="ngo-campaign-img-text">
+							<ul class="clearfix">
+								<li><p><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#"><?php echo $this->_bannerHelper->getDateFormat($post->getCreatedTime()); ?></a></p></li>
+								<li><p><i class="fa fa-eye" aria-hidden="true"></i> <a href="#">65</a></p></li>
+								<li><p><i class="fa fa-comment" aria-hidden="true"></i> <a href="#">40</a></p></li>
+							</ul>
+						</div>
+					</div>
+					<div class="ngo-campaign-content">
+						<h4><?php echo $post->getName(); ?></h4>
+						<p><?php echo $post->getShortContent(); ?></p>
+						<a class="btn ngo-btn-donate ngo-btn-transparent" href="#" role="button">DONATE NOW</a>
+					</div>
+				</div>
+			</div>
+			<?php } }else{
+					echo '<h2>Please add post</h2>';
+			} ?>
+		</div>
+	</div>
+</section>
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+			jQuery('.owl-carousel').owlCarousel({
+			    loop:true,
+			    margin:0,
+			    nav:true,
+			    responsive:{
+			        0:{
+			            items:1
+			        },
+			        600:{
+			            items:1
+			        },
+			        1000:{
+			            items:1
+			        }
+			    }
+			});
+});
+</script>
